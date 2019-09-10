@@ -20,10 +20,11 @@ public class Cli {
         System.out.println(ANSI_RED+"Subiendo informacion a memoria principal"+ANSI_RESET);
         Scanner e = new Scanner(System.in);
         String entrada="";
+
         int opc=0;
         int n=0;
         Examples[] array;
-        n=ControladorExampleSingleton.getcontroladorExamples().numeroRegistro();                   
+        n=ControladorExampleSingleton.getcontroladorExamples().numeroRegistro();
         array=new Examples[n];
         array=ControladorExampleSingleton.getcontroladorExamples().obtenerRegistros(n);
         
@@ -37,7 +38,8 @@ public class Cli {
                     +"3. Buscar registros por Date & Gender. \n"
                     +"4. Mostrar registros ordenados por Gender. \n"
                     +"5. Mostrar registros ordenados por Date. \n"
-                    +"6. Salir del programa.\nopcion>"
+		            +"6. Mostrar registros ordenados por Fatal.\n"
+                    +"7. Salir del programa.\nopcion>"
             );
 
             try {
@@ -48,7 +50,7 @@ public class Cli {
 
             switch (opc){
                 case 1:                    
-                    System.out.print("\n\nEscriba la fecha en formato [dd/mm/yyyy]>"); entrada=e.nextLine();
+                    System.out.print("\n\nEscriba la fecha en formato [MM/DD/YYYY]>"); entrada=e.nextLine();
                     ControladorExampleSingleton.getcontroladorExamples().buscarRegistrosDate(array, entrada);
                 break;
                 case 2:
@@ -58,7 +60,7 @@ public class Cli {
                 break;
                 case 3:
                     String gender="", date="";
-                    System.out.println("\n\nEscriba el genero [F o M] & la fecha en formato [dd/mm/yyyy]>");
+                    System.out.println("\n\nEscriba el genero [F o M] & la fecha en formato [MM/DD/YYYY]>");
                     System.out.print("genero>"); gender=e.nextLine(); System.out.println("date>"); date=e.nextLine();
                     ControladorExampleSingleton.getcontroladorExamples().buscarRegistroGenderDate(array, gender, date);
                 break;
@@ -72,7 +74,12 @@ public class Cli {
                     System.out.print("\n\nEscriba asc o desc para organizar por Date>");ordenD=e.nextLine();
                     ControladorExampleSingleton.getcontroladorExamples().mostrarRegistrosPorDate(array,ordenD);
                 break;
+		        case 6:
+                    String ordenF="";
+                    System.out.print("\n\nEscriba asc o desc para organizar por Fatal>");ordenF=e.nextLine();
+                    ControladorExampleSingleton.getcontroladorExamples().mostrarRegistrosPorFatal(array,ordenF);
+                break;
             }
-        }while(opc!=6);
+        }while(opc!=7);
     }
 }
